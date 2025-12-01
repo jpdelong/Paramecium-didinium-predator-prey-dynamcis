@@ -1,6 +1,6 @@
 In this repository, we store the raw data files and data analysis files used in the stability selection paper by DeLong et al.
 
-Files names as "Did_par_##.csv" are population count/density data files for the outcrossed lines numbered 9, 33, 34, 56, 57.
+Files names as "Did_par_##_all.csv" are population count/density data files for the outcrossed lines numbered 9, 33, 34, 56, 57.
 The file named "Morphdatacombined.csv" contains the video phenotyping data of paramecia through time by each replicate.
 The file named "Mixed_genotypes.csv" contains the population count/density data for the mixed-genotype replicates.
 The Julia file ".jl" is the main analysis file for the whole study. It calls the following functions:
