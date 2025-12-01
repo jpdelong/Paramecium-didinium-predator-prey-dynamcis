@@ -4,6 +4,6 @@ Files names as "Did_par_##_all.csv" are population count/density data files for 
 The file named "MorphDataCombined.csv" contains the video phenotyping data of paramecia through time by each replicate.
 The file named "Mixed_genotype_dishes.csv" contains the population count/density data for the mixed-genotype replicates.
 The Julia file ".jl" is the main analysis file for the whole study. It calls the following functions:
-1. "endpoints.jl" calculates the ...
-2. ""
-3. ""
+1. "end_points.jl" calculates the ...
+2. "plot_gt_dynamics2.jl" is a convenience function for plotting the same thing repeatedly.
+3. "plot_morph_dynamics.jl" is a convenience function for plotting the same thing repeatedly.
