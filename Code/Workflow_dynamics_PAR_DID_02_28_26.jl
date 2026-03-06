@@ -1,5 +1,5 @@
-dir = "C:/Users/jdelong2/OneDrive - University of Nebraska/Desktop/Paramecium-didinium-predator-prey-dynamcis-main"
-cd(dir)
+#dir = "C:/Users/jdelong2/OneDrive - University of Nebraska/Desktop/Paramecium-didinium-predator-prey-dynamcis-main"
+#cd(dir)
 
 ##
 using DataFrames, CSV, Statistics, MultivariateStats, GLM
@@ -28,7 +28,7 @@ col_57 = gradient[6]
 # Axis specifies the plot index location [row,col]
 # we can add some layout details in here too like labels
 
-f = Figure(size = (1000, 400))
+f = Figure(size = (1000, 400), resolution=(500,500))
     ax_56p = Axis(f[1, 1], title = "Paramecium")
     ax_56d = Axis(f[1, 2], title = "Didinium")
     ax_57p = Axis(f[2, 1])
@@ -46,11 +46,11 @@ f = Figure(size = (1000, 400))
     linkxaxes!(ax_56p, ax_57p, ax_34p, ax_9p, ax_33p)
     linkxaxes!(ax_56d, ax_57d, ax_34d, ax_9d, ax_33d)
 
-f2 = Figure()
+f2 = Figure(resolution=(500,500))
     ax_SS = Axis(f2[1, 1], ylabel = "Paramecium density", ylabelsize=20,
         xlabel = "Didinium density", xlabelsize=20)
     
-f3 = Figure()
+f3 = Figure(resolution=(500,500))
     ax_days_ext = Axis(f3[1, 1], ylabel = "Day of extinction",ylabelsize=20,
         xticks=([1,2,3,4,5,6], ["Mixed","9","33","34","56","57"]))
     ax_cv = Axis(f3[2, 1], ylabel = "CV of density", xlabel = "Genotype treatment (line)",
