@@ -1,5 +1,5 @@
-#dir = "C:/Users/jdelong2/OneDrive - University of Nebraska/Desktop/Paramecium-didinium-predator-prey-dynamcis-main"
-#cd(dir)
+dir = "C:/Users/jdelong2/OneDrive - University of Nebraska/Projects in progress/Paramecium genotypes Didinium"
+cd(dir)
 
 ##
 using DataFrames, CSV, Statistics, MultivariateStats, GLM
@@ -28,7 +28,7 @@ col_57 = gradient[6]
 # Axis specifies the plot index location [row,col]
 # we can add some layout details in here too like labels
 
-f = Figure(size = (1000, 400), resolution=(500,500))
+f = Figure(size = (1000, 400))
     ax_56p = Axis(f[1, 1], title = "Paramecium")
     ax_56d = Axis(f[1, 2], title = "Didinium")
     ax_57p = Axis(f[2, 1])
@@ -46,11 +46,11 @@ f = Figure(size = (1000, 400), resolution=(500,500))
     linkxaxes!(ax_56p, ax_57p, ax_34p, ax_9p, ax_33p)
     linkxaxes!(ax_56d, ax_57d, ax_34d, ax_9d, ax_33d)
 
-f2 = Figure(resolution=(500,500))
+f2 = Figure()
     ax_SS = Axis(f2[1, 1], ylabel = "Paramecium density", ylabelsize=20,
         xlabel = "Didinium density", xlabelsize=20)
     
-f3 = Figure(resolution=(500,500))
+f3 = Figure()
     ax_days_ext = Axis(f3[1, 1], ylabel = "Day of extinction",ylabelsize=20,
         xticks=([1,2,3,4,5,6], ["Mixed","9","33","34","56","57"]))
     ax_cv = Axis(f3[2, 1], ylabel = "CV of density", xlabel = "Genotype treatment (line)",
@@ -297,9 +297,9 @@ f
 f2
 f3
 
-save("GT_timeseries.png",f)
-save("GT_statespace.png",f2)
-save("GT_stability.png",f3)
+save("GT_timeseries.pdf",f, backend = CairoMakie, pt_per_unit = 20)
+save("GT_statespace.png",f2, backend = CairoMakie, pt_per_unit = 20)
+save("GT_stability.pdf",f3, backend = CairoMakie, pt_per_unit = 20)
 
 ##############################################
 # now do the trait dynamics plots
@@ -461,14 +461,17 @@ morphdata_20 = morphdata[findall(morphdata.Day_of .< 20),:]
 
     new_x = DataFrame(PCA1 = range(minimum(df_extinction.PCA1), maximum(df_extinction.PCA1), length=10))
     df_predict_y = predict(lm_1,new_x, interval=:confidence, level = 0.95)
-    lines!(ax_pcade_25,new_x.PCA1, df_predict_y.prediction, linewidth = 2)
+    lines!(ax_pcade_25,new_x.PCA1, df_predict_y.prediction, linewidth = 2, linestyle = :dot)
     band!(ax_pcade_25,new_x.PCA1,df_predict_y.lower,df_predict_y.upper; color = (:blue, 0.2))
+        text!(ax_pcade_25, [(1.2,15)], text = "N.S.", fontsize = 18) # Annotate the empty subplot
 
-    Legend(f4[1, 3], [PolyElement(color = col_mix),PolyElement(color = :black),PolyElement(color = :white, strokecolor = :black, strokewidth = 2)],
+    Legend(f4[1, 3], [PolyElement(color = col_33),PolyElement(color = :black),PolyElement(color = :white, strokecolor = :black, strokewidth = 2)],
     ["Start","Extinct","Extant"])
 
 f4
-save("Stability_test_new.png",f4)
+
+using CairoMakie
+save("Stability_test_new.pdf",f4, backend = CairoMakie, pt_per_unit = 20)
 
 ##############################################
 # now plot the phenotype dynamics for the individual genotypes
@@ -532,7 +535,9 @@ f5 = Figure(size = (500, 500))
     ["line 9","line 33","line 34","line 56","line 57"])
 
 f5
-save("GT_phenotype_traj.png",f5)
+using CairoMakie
+
+save("GT_phenotype_traj.pdf",f5, backend = CairoMakie, pt_per_unit = 20)
 
     df_plasticity_all = append!(df_plasticity,df_plasticity2,df_plasticity3,df_plasticity4,df_plasticity5)
     lm_1 = lm(@formula(Day_extinct ~ PCA1 * PCA2), df_plasticity_all)
